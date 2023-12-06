@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  pipeless-docker:
+#    build: .
+    image: chanwitkepha/pipeless-docker-cuda11.7-cudnn8-ubuntu2204:1.0
+    container_name: pipeless-docker
+    tty: true
+    runtime: nvidia
+    environment:
+    - TZ=Asia/Bangkok
+            
+#    - CUDA_VISIBLE_DEVICES=0,1
+#    - CUDA_VISIBLE_DEVICES=0
+#    - NVIDIA_VISIBLE_DEVICES=all
+    - NVIDIA_VISIBLE_DEVICES=all
+    volumes:
+    - .:/app
+
+#    privileged: true
+    network_mode: host
+
+    deploy:
+      resources:
+        limits:
+          memory: 32g
+
+    #networks:
+    #  cuda-docker:
+    #     ipv4_address: 172.22.0.2
+
+    #networks:
+    #   cuda-docker:
+    #     driver: bridge
+    #       ipam:
+    #         driver: default
+    #           config:
+    #             - subnet: 172.22.0.0/24
